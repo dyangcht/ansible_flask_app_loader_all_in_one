@@ -1,3 +1,4 @@
 - name: test variables
+  hosts: all
   roles:
-  - role: db
+    - role: db
