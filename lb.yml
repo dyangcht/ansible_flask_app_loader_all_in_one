@@ -4,7 +4,7 @@
   become: true
 
   vars_files:
-    - lb_vars.yml
+    - group_vars/lb_vars.yml
 
   tags:
     - load_balancers

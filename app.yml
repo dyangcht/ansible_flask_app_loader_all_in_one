@@ -7,7 +7,7 @@
     - flask
 
   vars_files:
-    - app_vars.yml
+    - group_vars/app_vars.yml
 
   tasks:
     - name: Create flask user

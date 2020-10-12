@@ -5,7 +5,7 @@
   tags:
     - database_servers
   vars_files:
-    - db_vars.yml
+    - group_vars/db_vars.yml
 
   tasks:
     - name: Install Postgres packages
