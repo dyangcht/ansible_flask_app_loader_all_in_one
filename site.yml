@@ -1,0 +1,4 @@
+- name: all
+  hosts: all
+  tasks:
+  import_playbook: main.yml
