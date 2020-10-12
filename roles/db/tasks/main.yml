@@ -1,3 +1,4 @@
 - name: get variables
   debug:
     msg: "{{ postgres_packages }} and {{postgres_users}}"
+    

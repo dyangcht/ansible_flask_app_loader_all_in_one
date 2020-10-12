@@ -1,0 +1,46 @@
+- name: test
+  hosts: localhost
+  vars:
+    var1: var1
+    var2: var2
+
+    user_data:
+      - david
+      - mouse
+      - eric
+
+    user_info:
+      name: david
+      nick: Bear
+      last: yang
+
+    ff:
+      - name: col1
+        desc: description
+
+  tasks:
+
+  - name: block test
+    block:
+      - debug:
+          msg: "test {{var1}}"
+      - command: /bin/false
+      - debug:
+          msg: "test 2"
+    rescue:
+      - debug:
+          msg: "test {{user_data}}"
+      - command: /bin/false
+      - debug:
+          msg: "test 4"
+    always:
+      - debug:
+          msg: "test {{user_data.0}}"
+      - debug:
+          msg: "test {{user_data[2]}}"
+      - debug:
+          msg: "test {{user_info['name']}}"
+      - debug:
+          msg: "test {{ff[0].desc}}"
+      - debug:
+          msg: "test {{ff.0['desc']}}"
