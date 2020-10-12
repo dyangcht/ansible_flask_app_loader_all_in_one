@@ -3,8 +3,8 @@
   gather_facts: false
   become: true
 
-  include_vars:
-    file: lb_vars.yml
+  vars_files:
+    - lb_vars.yml
 
   tags:
     - load_balancers

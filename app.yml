@@ -6,8 +6,8 @@
     - application_servers
     - flask
 
-  include_vars:
-    file: app_vars.yml
+  vars_files:
+    - app_vars.yml
 
   tasks:
     - name: Create flask user
