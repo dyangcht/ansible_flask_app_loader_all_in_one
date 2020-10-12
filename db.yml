@@ -4,8 +4,8 @@
   gather_facts: false
   tags:
     - database_servers
-  include_vars:
-    file: db_vars.yml
+  vars_files:
+    - db_vars.yml
 
   tasks:
     - name: Install Postgres packages
