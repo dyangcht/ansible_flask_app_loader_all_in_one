@@ -12,3 +12,27 @@ appdb1
 load_balancers
 app_servers
 database_servers
+
+[windows]
+ad1.e0bb.internal
+
+[windows:vars]
+ansible_connection=winrm
+ansible_user=Administrator
+ansible_password=jVMijRwLbI02gFCo2xkjlZ9lxEA7bm7zgg==
+ansible_winrm_server_cert_validation=ignore
+
+[supports]
+support1.e0bb.internal
+
+[windows_oci]
+# wins ssh_host=158.101.110.155 ansible_password="Eric$%^123456"
+wins ansible_host=150.136.177.94 ansible_password="Eric$%^123456"
+
+[windows_oci:vars]
+ansible_connection=winrm
+ansible_user=opc
+ansible_winrm_server_cert_validation=ignore
+ansible_become=false
+ansible_become_user=opc
+# ansible_become_method=runas
