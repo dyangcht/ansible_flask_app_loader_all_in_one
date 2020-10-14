@@ -12,3 +12,15 @@ appdb1
 load_balancers
 app_servers
 database_servers
+
+[windows]
+# wins ssh_host=158.101.110.155 ansible_password="Eric$%^123456"
+wins ansible_host=150.136.177.94 ansible_password="Eric$%^123456"
+
+[windows:vars]
+ansible_connection=winrm
+ansible_user=opc
+ansible_winrm_server_cert_validation=ignore
+ansible_become=false
+ansible_become_user=opc
+# ansible_become_method=runas
