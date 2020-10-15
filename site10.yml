@@ -1,0 +1,51 @@
+---
+- name: add host
+  hosts: localhost
+  gather_facts: false
+  tasks:
+
+  - debug: var=groups
+  # - pause:
+
+
+  - openstack.cloud.server_info:
+    register: result
+  - debug:
+      msg: "hostname: {{ item.0 }} IP: {{ item.1 }}  Group: {{ item.2 }}"
+    with_together:
+      - "{{ result.openstack_servers | map(attribute='hostname') | list }}"
+      - "{{ result.openstack_servers | map(attribute='interface_ip') | list }}"
+      - "{{ result.openstack_servers | map(attribute='metadata.group') | list }}"
+
+  - name: add host
+    add_host:
+      ansible_host: "{{ item.0 }}"
+      hostname: "{{ item.1 }}"
+      groups: "{{ item.2 }}"
+      ansible_user: cloud-user
+      ansible_ssh_private_key_file: "~/.ssh/openstack.pem"
+    with_together:
+      - "{{ result.openstack_servers | map(attribute='hostname') | list }}"
+      - "{{ result.openstack_servers | map(attribute='interface_ip') | list }}"
+      - "{{ result.openstack_servers | map(attribute='metadata.group') | list }}"
+
+  - debug: var=groups
+  - debug:
+      msg: "{{ inventory_hostname }}"
+
+- name: Setup Repos
+  hosts: app_servers:load_balancers:database_servers
+  gather_facts: false
+  become: true
+
+  tags:
+    - common
+  tasks:
+    - name: Copy repo file
+      copy:
+        src: ../files/open_three-tier-app.repo
+        dest: /etc/yum.repos.d/open_three-tier-app.repo
+
+- import_playbook: provision_database_tier.yml
+- import_playbook: provision_app_tier.yml
+- import_playbook: provision_load_balancer_tier.yml
